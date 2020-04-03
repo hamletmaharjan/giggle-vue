@@ -1,24 +1,23 @@
 <template>
   <div class="home">
-    Hottest Articles
+    <ArticleList v-bind:articles="getArticles"></ArticleList>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import ArticleList from '../components/ArticleList';
 
 export default {
   name: 'Home',
   components: {
-    
+    ArticleList
   },
   methods:mapActions(['fetchArticles']),
-  computed: {
-    token: function() {
-      return this.getAccessToken;
-    }
-  },
+
+  computed: mapGetters(['getArticles']),
+  
   created(){
     this.fetchArticles();
   }

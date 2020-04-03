@@ -5,7 +5,7 @@ const state = {
 };
 
 const getters = {
-    allArticles: state => state.articles
+    getArticles: state => state.articles
 };
 
 
