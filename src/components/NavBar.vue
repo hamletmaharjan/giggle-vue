@@ -44,7 +44,8 @@
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form> -->
-                <ul class="navbar-nav">
+                <ul class="navbar-nav" v-if="isLoggedIn">
+                    
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <li class="nav-item">
                         <router-link class="nav-link" to="">Notifications</router-link>
@@ -52,10 +53,16 @@
                     <li class="nav-item">
                         <router-link class="nav-link" to=""><img alt="Vue logo" src="../assets/lady.png" height="30px" width="30px"></router-link>
                     </li>
+                    
                     <li class="nav-item">
                         <router-link class="nav-link" to="">Upload</router-link>
                     </li>
+                    
+
+                    
                 </ul>
+                
+                <a v-else class="nav-link">Login</a>
             </div>
         </nav>
     </div>
@@ -63,7 +70,11 @@
 
 
 <script>
+
+import { mapGetters } from 'vuex';
 export default {
-    name: 'NavBar'
+    name: 'NavBar',
+
+    computed: mapGetters(['isLoggedIn'])
 }
 </script>

@@ -8,6 +8,15 @@ const getters = {
 
     getData(state){
         return state.crap;
+    },
+
+    isLoggedIn(state) {
+        if(state.access_token){
+            return true;
+        }
+        else{
+            return false
+        }
     }
 };
 
@@ -18,6 +27,11 @@ const actions = {
         context.commit('setAccessToken',data.access_token);
         window.localStorage.setItem('access_token',data.access_token);
         
+    },
+
+    logout(context){
+        context.commit('setAccessToken',null);
+        window.localStorage.removeItem('access_token');
     }
 
 };

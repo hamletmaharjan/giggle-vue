@@ -6,21 +6,21 @@
 
 <script>
 // @ is an alias to /src
-import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
     
   },
-  methods:mapGetters(['getAccessToken','getData']),
+  methods:mapActions(['fetchArticles']),
   computed: {
     token: function() {
       return this.getAccessToken;
     }
   },
   created(){
-    console.log(this.getData());
+    this.fetchArticles();
   }
 }
 </script>
