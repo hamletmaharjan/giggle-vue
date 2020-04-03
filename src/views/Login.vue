@@ -7,26 +7,30 @@
         <input type="password" v-model="password">
         <button v-on:click="onSumbit">Login</button>
 
+        <br>
+        {{token}}
+
     </div>
 </template>
 
 
 <script>
-import axios from 'axios';
 import { mapActions } from 'vuex';
+import axios from 'axios';
+
 
 export default {
     name: 'Login',
     data(){
         return {
             email:'',
-            password:''
+            password:'',
+            token:[]
         }
     },
 
     methods: {
 
-        ...mapActions(['login']),
 
         onSumbit: function() {
             // this.$emit('loginData',{email: this.email, password: this.password});
@@ -39,16 +43,16 @@ export default {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Content-Type':'application/json'
                 }
-            }).then(function (response) {
-                    console.log(response.data);
-                    this.login(response.data.access_token);
+            }).then( (res) => {
+                this.logIn(res.data);
                 })
                 .catch(function (error) {
                     console.log(error);
             });
 
             
-        }
+        },
+        ...mapActions(['logIn'])
     }
 }
 </script>

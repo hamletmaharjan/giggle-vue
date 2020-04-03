@@ -13,11 +13,14 @@ export default {
   components: {
     
   },
-  methods: mapGetters(['getAccessToken']),
+  methods:mapGetters(['getAccessToken','getData']),
   computed: {
     token: function() {
       return this.getAccessToken;
     }
+  },
+  created(){
+    console.log(this.getData());
   }
 }
 </script>

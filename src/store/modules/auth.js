@@ -1,19 +1,25 @@
 const state = {
+    crap:'fuck this',
     access_token: window.localStorage.getItem('access_token')
 };
 
 const getters = {
-    getAccessToken: state => state.token
+    getAccessToken: state => state.token,
+
+    getData(state){
+        return state.crap;
+    }
 };
 
 
 const actions = {
-    login({commit},data) {
+    logIn(context,data) {
         console.log(data);
-        commit('setAccessToken',data);
-        window.localStorage.setItem('access_token',data);
+        context.commit('setAccessToken',data.access_token);
+        window.localStorage.setItem('access_token',data.access_token);
         
     }
+
 };
 
 
