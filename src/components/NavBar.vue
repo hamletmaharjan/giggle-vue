@@ -40,10 +40,22 @@
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <!-- <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                </form> -->
+                <ul class="navbar-nav">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="">Notifications</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to=""><img alt="Vue logo" src="../assets/lady.png" height="30px" width="30px"></router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="">Upload</router-link>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>
