@@ -28,9 +28,13 @@ export default{
         });
     },
 
-    postComment(token,articleId) {
+    postComment(token,articleId,comment) {
         const url = `${ROOT_URL}/articles/${articleId}/comments`;
-        return axios.post(url,{
+        const formData = new FormData();
+        formData.append('comment',comment);
+
+        return axios.post(url,formData,
+            {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Content-Type': 'application/json',

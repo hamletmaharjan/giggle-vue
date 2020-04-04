@@ -1,4 +1,5 @@
 import api from '../../api/giggle';
+import axios from 'axios';
 
 const state = {
     articles: [],
@@ -30,8 +31,31 @@ const actions = {
         const response = await api.fetchSingleArticle(token,id);
         //console.log(response);
         commit('setArticle',response.data.data);
-    }
+    },
 
+    postComment({rootState}, userData) {
+        const token = rootState.auth.access_token;
+        // const response = await api.postComment(token, articleId, comment);
+        console.log(userData.articleId+ ' ' + userData.userComment);
+        const ROOT_URL = 'http://localhost:8000/api';
+        const url = `${ROOT_URL}/articles/${userData.articleId}/comments`;
+        const formData = new FormData();
+        formData.append('comment',userData.userComment);
+
+        axios.post(url,formData,
+            {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then( (res) => {
+            this.logIn(res.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+        });
+    }
 
 };
 

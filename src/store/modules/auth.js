@@ -4,8 +4,9 @@ const state = {
 };
 
 const getters = {
-    getAccessToken: state => state.token,
-
+    getAccessToken(state) {
+        return state.access_token;
+    },
     getData(state){
         return state.crap;
     },

@@ -7,7 +7,7 @@
         <div class="input-group mb-3">
             <input v-on:input="onInput" class="form-control" placeholder="Leave a comment...">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" v-on:click="postComment">Button</button>
+                <button class="btn btn-outline-secondary" type="button" v-on:click="onComment">Submit</button>
             </div>
         </div>
 
@@ -19,9 +19,13 @@
 
 
 <script>
+//import axios from 'axios';
+
+
 import { mapActions, mapGetters } from 'vuex';
 import Comment from '../components/Comment.vue';
 
+//const ROOT_URL = 'http://localhost:8000/api';
 
 
 export default {
@@ -36,12 +40,34 @@ export default {
     },
 
     methods: {
-        ...mapActions(['fetchSingleArticle']),
+        ...mapActions(['fetchSingleArticle','postComment']),
+        ...mapGetters(['getAccessToken']),
         onInput: function(event) {
             this.userComment = event.target.value
         },
-        postComment: function() {
+        onComment: function() {
             console.log(this.userComment);
+            const articleId = this.$route.params.id;
+            const data = {articleId: articleId, userComment: this.userComment}
+            this.postComment(data);
+            // const url = `${ROOT_URL}/articles/${articleId}/comments`;
+            // const formData = new FormData();
+            // const token = this.getAccessToken();
+            // formData.append('comment',this.userComment);
+
+            // axios.post(url,formData,
+            //     {
+            //     headers: {
+            //         'X-Requested-With': 'XMLHttpRequest',
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${token}`
+            //     }
+            // }).then( (res) => {
+            //     this.logIn(res.data);
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            // });
         }
     },
     computed: {...mapGetters(['getArticle']),
