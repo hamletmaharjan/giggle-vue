@@ -1,6 +1,7 @@
 <template>
   <div>
-      {{comment.comment}}
+      <h6>{{comment.user}}</h6>
+      <p>{{comment.comment}}</p>
   </div>
 </template>
 
@@ -12,3 +13,8 @@ export default {
 }
 </script>
 
+<style scoped>
+h6{
+    margin-bottom: 0;
+}
+</style>

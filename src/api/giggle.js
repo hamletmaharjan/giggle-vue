@@ -26,5 +26,16 @@ export default{
                 'Authorization': `Bearer ${token}`
             }
         });
+    },
+
+    postComment(token,articleId) {
+        const url = `${ROOT_URL}/articles/${articleId}/comments`;
+        return axios.post(url,{
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
     }
 }

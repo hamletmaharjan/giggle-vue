@@ -2,13 +2,17 @@ import api from '../../api/giggle';
 
 const state = {
     articles: [],
-    article:{}
+    article:{},
+    comments:[]
 };
 
 const getters = {
     getArticles: state => state.articles,
     getArticle: function(state){
         return state.article
+    },
+    getComments: function(state) {
+        return state.comments
     } 
 };
 
@@ -38,6 +42,10 @@ const mutations = {
     },
     setArticle(state, article){
         state.article = article;
+    },
+
+    setComments(state, comments) {
+        state.comments = comments;
     }
 };
 
