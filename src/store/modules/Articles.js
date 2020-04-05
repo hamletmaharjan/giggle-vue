@@ -22,7 +22,6 @@ const actions = {
     async fetchArticles({ rootState, commit }) {
         const token = rootState.auth.access_token;
         const response = await api.fetchArticles(token);
-        console.log(response);
         commit('setArticles',response.data.data);
     },
 
@@ -36,7 +35,6 @@ const actions = {
     postComment({rootState,dispatch}, userData) {
         const token = rootState.auth.access_token;
         // const response = await api.postComment(token, articleId, comment);
-        console.log(userData.articleId+ ' ' + userData.userComment);
         const ROOT_URL = 'http://localhost:8000/api';
         const url = `${ROOT_URL}/articles/${userData.articleId}/comments`;
         const formData = new FormData();
@@ -57,7 +55,34 @@ const actions = {
                 console.log(error);
         });
         
+    },
+
+    uploadArticle({rootState}, articleData) {
+        console.log(articleData);
+        const token = rootState.auth.access_token;
+        const ROOT_URL = 'http://localhost:8000/api';
+        const url = `${ROOT_URL}/articles`;
+        const formData = new FormData();
+        formData.append('title', articleData.title);
+        formData.append('description', articleData.description);
+        formData.append('image', articleData.image, articleData.image.name);
+
+        axios.post(url,formData,
+            {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then( (res) => {
+            console.log(res);
+            //dispatch('fetchSingleArticle', userData.articleId);
+            })
+            .catch(function (error) {
+                console.log(error);
+        });
     }
+
 
 };
 

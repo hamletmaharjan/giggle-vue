@@ -74,7 +74,7 @@
                                             <label>Picture</label>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="file" accept="image/*"> <br>
+                                            <input type="file" ref="file" accept="image/*" v-on:change="onFileChange"> <br>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -82,7 +82,7 @@
                                             <label>Title</label>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text">
+                                            <input type="text" v-model="title">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -90,17 +90,14 @@
                                             <label>Description</label>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text">
+                                            <input type="text" v-model="description">
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                         <button>Submit</button> 
                                     </div>
                                     
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary" v-on:click="onPostSubmit">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -119,10 +116,30 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
     name: 'NavBar',
+    data() {
+        return {
+            title:'',
+            description:'',
+            image: {}
+        }
+    },
+    computed: mapGetters(['isLoggedIn']),
 
-    computed: mapGetters(['isLoggedIn'])
+    methods: {
+        ...mapActions(['uploadArticle']),
+        onFileChange: function(event) {
+            this.image = event.target.files[0];
+            
+        },
+        onPostSubmit: function() {
+            const data = {title: this.title, description: this.description, image: this.image };
+            console.log(data);
+            this.uploadArticle(data);
+            
+        }
+    }
 }
 </script>
