@@ -33,7 +33,7 @@ const actions = {
         commit('setArticle',response.data.data);
     },
 
-    postComment({rootState}, userData) {
+    postComment({rootState,dispatch}, userData) {
         const token = rootState.auth.access_token;
         // const response = await api.postComment(token, articleId, comment);
         console.log(userData.articleId+ ' ' + userData.userComment);
@@ -50,11 +50,13 @@ const actions = {
                 'Authorization': `Bearer ${token}`
             }
         }).then( (res) => {
-            this.logIn(res.data);
+            console.log(res);
+            dispatch('fetchSingleArticle', userData.articleId);
             })
             .catch(function (error) {
                 console.log(error);
         });
+        
     }
 
 };

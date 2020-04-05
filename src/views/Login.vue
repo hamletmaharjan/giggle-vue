@@ -44,7 +44,7 @@ export default {
                 'Content-Type':'application/json'
                 }
             }).then( (res) => {
-                this.logIn(res.data);
+                this.login(res.data);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -52,7 +52,7 @@ export default {
 
             
         },
-        ...mapActions(['logIn'])
+        ...mapActions(['login'])
     }
 }
 </script>

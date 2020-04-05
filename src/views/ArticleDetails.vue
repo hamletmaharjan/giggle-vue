@@ -1,6 +1,7 @@
 <template>
     <div>
         <a href="#"><h2>{{getArticle.title}}</h2></a>
+        <p>OP: {{getArticle.op}}</p>
         <img v-bind:src="imageUrl">
         <p>{{getArticle.upvotes}} upvotes | {{getArticle.comments_count}} comments</p> <hr>
 
@@ -50,6 +51,7 @@ export default {
             const articleId = this.$route.params.id;
             const data = {articleId: articleId, userComment: this.userComment}
             this.postComment(data);
+            //this.fetchSingleArticle(this.$route.params.id);
             // const url = `${ROOT_URL}/articles/${articleId}/comments`;
             // const formData = new FormData();
             // const token = this.getAccessToken();

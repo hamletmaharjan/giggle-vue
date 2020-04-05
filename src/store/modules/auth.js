@@ -12,18 +12,18 @@ const getters = {
     },
 
     isLoggedIn(state) {
-        if(state.access_token){
-            return true;
+        if((state.access_token == "null") || (state.access_token == null)){
+            return false;
         }
         else{
-            return false
+            return true;
         }
     }
 };
 
 
 const actions = {
-    logIn(context,data) {
+    login(context,data) {
         console.log(data);
         context.commit('setAccessToken',data.access_token);
         window.localStorage.setItem('access_token',data.access_token);
