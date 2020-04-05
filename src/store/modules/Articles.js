@@ -57,7 +57,7 @@ const actions = {
         
     },
 
-    uploadArticle({rootState}, articleData) {
+    async uploadArticle({rootState}, articleData) {
         console.log(articleData);
         const token = rootState.auth.access_token;
         const ROOT_URL = 'http://localhost:8000/api';
@@ -67,20 +67,15 @@ const actions = {
         formData.append('description', articleData.description);
         formData.append('image', articleData.image, articleData.image.name);
 
-        axios.post(url,formData,
+        const res = await axios.post(url,formData,
             {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
-        }).then( (res) => {
-            console.log(res);
-            //dispatch('fetchSingleArticle', userData.articleId);
-            })
-            .catch(function (error) {
-                console.log(error);
         });
+        console.log(res);
     }
 
 

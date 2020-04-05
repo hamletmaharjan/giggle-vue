@@ -48,10 +48,21 @@
                     
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="">Notifications</router-link>
+                        <router-link class="nav-link" to=""><img src="../assets/bell.png" height="30px" width="30px"></router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" to=""><img alt="Vue logo" src="../assets/lady.png" height="30px" width="30px"></router-link>
+                    <li class="nav-item dropdown">
+                        <!-- <router-link class="nav-link" to=""><img src="../assets/lady.png" height="30px" width="30px"></router-link> -->
+
+                        <router-link class="nav-link dropdown-toggle" to="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="../assets/lady.png" height="30px" width="30px">
+                        </router-link>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" v-on:click="onLogout">Logout</a>
+                        </div>
+
                     </li>
                     
                     <li class="nav-item">
@@ -106,8 +117,16 @@
 
                     
                 </ul>
+                <ul v-else class="navbar-nav">
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/login">Login</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="">Signup</router-link>
+                    </li>
+                </ul>
 
-                <a v-else class="nav-link">Login</a>
+                <!-- <router-link v-else class="nav-link" to="/login">Login</router-link> -->
             </div>
         </nav>
     </div>
@@ -129,7 +148,7 @@ export default {
     computed: mapGetters(['isLoggedIn']),
 
     methods: {
-        ...mapActions(['uploadArticle']),
+        ...mapActions(['uploadArticle','logout']),
         onFileChange: function(event) {
             this.image = event.target.files[0];
             
@@ -139,6 +158,11 @@ export default {
             console.log(data);
             this.uploadArticle(data);
             
+        },
+
+        onLogout() {
+            console.log('logout');
+            this.logout();
         }
     }
 }
