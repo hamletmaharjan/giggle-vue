@@ -2,13 +2,11 @@
     <div>
         Login
         <label>Email</label>
-        <input type="text" v-model="email">
+        <input type="text" v-model="email"><br>
         <label>Password</label>
-        <input type="password" v-model="password">
+        <input type="password" v-model="password"> <br>
         <button v-on:click="onSumbit">Login</button>
 
-        <br>
-        {{token}}
 
     </div>
 </template>
@@ -17,6 +15,7 @@
 <script>
 import { mapActions } from 'vuex';
 import axios from 'axios';
+import router from '../router/index';
 
 
 export default {
@@ -34,7 +33,7 @@ export default {
 
         onSumbit: function() {
             // this.$emit('loginData',{email: this.email, password: this.password});
-            console.log(this.email+ ' '+ this.password);
+            
             const formData = new FormData();
             formData.append('email',this.email);
             formData.append('password',this.password);
@@ -45,6 +44,7 @@ export default {
                 }
             }).then( (res) => {
                 this.login(res.data);
+                router.push('/');
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -52,7 +52,7 @@ export default {
 
             
         },
-        ...mapActions(['login'])
+        ...mapActions(['login','fetchUserData'])
     }
 }
 </script>

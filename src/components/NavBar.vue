@@ -57,7 +57,7 @@
                             <img src="../assets/lady.png" height="30px" width="30px">
                         </router-link>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">My Profile</a>
+                            <router-link class="dropdown-item" v-bind:to="myProfileLink">My Profile</router-link>
                             <a class="dropdown-item" href="#">Settings</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" v-on:click="onLogout">Logout</a>
@@ -145,10 +145,16 @@ export default {
             image: {}
         }
     },
-    computed: mapGetters(['isLoggedIn']),
+    computed: {...mapGetters(['isLoggedIn','getUserData']),
+        myProfileLink: function() {
+            return '/user/' + this.getUserData.name;
+            
+        }
+    },
 
     methods: {
         ...mapActions(['uploadArticle','logout']),
+        
         onFileChange: function(event) {
             this.image = event.target.files[0];
             
