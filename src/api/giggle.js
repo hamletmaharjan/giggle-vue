@@ -41,5 +41,16 @@ export default{
                 'Authorization': `Bearer ${token}`
             }
         })
+    },
+
+    fetchUsersArticles(token, userId) {
+        const url = `${ROOT_URL}/users/${userId}/articles`;
+        return axios.get(url,{
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
     }
 }
