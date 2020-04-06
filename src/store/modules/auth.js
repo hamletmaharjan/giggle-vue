@@ -41,7 +41,7 @@ const actions = {
     logout(context){
         context.commit('setAccessToken',null);
         window.localStorage.removeItem('access_token');
-    },
+    }
 
 
     

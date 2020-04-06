@@ -52,5 +52,10 @@ export default{
                 'Authorization': `Bearer ${token}`
             }
         });
+    },
+
+
+    signup(userData) {
+        return userData;
     }
 }
