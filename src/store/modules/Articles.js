@@ -37,7 +37,7 @@ const actions = {
         const token = rootState.auth.access_token;
         const response = await api.fetchUsersArticles(token,userId);
         console.log(response);
-        commit('setArticle', response.data.data);
+        commit('setArticles', response.data.data);
     },
 
     postComment({rootState,dispatch}, userData) {
