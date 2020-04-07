@@ -24,15 +24,17 @@
 
 <script>
 
-import upvoted from '../assets/upvote-btn-orange.png';
-import upvote from '../assets/upvote-btn.png';
+import { mapGetters } from 'vuex';
+import axios from 'axios';
+// import upvoted from '../assets/upvote-btn-orange.png';
+// import upvote from '../assets/upvote-btn.png';
 
 export default {
     name: 'Article',
     props: ['article'],
     data() {
         return {
-            upvoteImg:upvote,
+            
             is_upvoted: false
         }
     },
@@ -42,25 +44,31 @@ export default {
         },
         articleUrl() {
             return '/articles/'+ this.article.id;
-        },
-
-        upvoteUrl: function() {
-            if(this.article.is_upvoted) {
-                
-                return upvoted;
-            }
-            else {
-                return this.upvoteImg;
-            }
-            
-        },
+        }
 
         
     },
     methods: {
+        ...mapGetters(['getAccessToken']),
         onUpvoteToggle: function() {
-            console.log('clicked');
+            console.log(this.article.id);
             this.is_upvoted = !this.is_upvoted;
+            const token = this.getAccessToken();
+            const formData = new FormData();
+            formData.append('article_id',this.article.id);
+            axios.post('http://localhost:8000/api/article/upvote',formData,{
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
+                }
+            }).then( (res) => {
+                console.log(res);
+                })
+                .catch(function (error) {
+                    console.log(error);
+            });   
+
         }
     },
 

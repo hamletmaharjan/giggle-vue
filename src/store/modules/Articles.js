@@ -86,7 +86,6 @@ const actions = {
         console.log(res);
     }
 
-
 };
 
 
