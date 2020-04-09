@@ -1,3 +1,5 @@
+
+
 const state = {
     user_data: window.localStorage.getItem('userData'),
     crap:'fuck this',
@@ -41,6 +43,7 @@ const actions = {
     logout(context){
         context.commit('setAccessToken',null);
         window.localStorage.removeItem('access_token');
+        
     }
 
 
