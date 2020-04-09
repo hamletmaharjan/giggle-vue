@@ -54,6 +54,17 @@ export default{
         });
     },
 
+    fetchMoreArticles(token, page){
+        const url = `${ROOT_URL}/articles?page=${page}`;
+        return axios.get(url,{
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    },
+
 
     signup(userData) {
         return userData;

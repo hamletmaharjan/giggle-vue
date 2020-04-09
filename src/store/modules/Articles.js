@@ -25,6 +25,13 @@ const actions = {
         commit('setArticles',response.data.data);
     },
 
+    async fetchMoreArticles({ rootState, commit }, page) {
+        const token = rootState.auth.access_token;
+        const response = await api.fetchMoreArticles(token, page);
+        console.log(response);
+        commit('addMoreToArticles', response.data.data);
+    },
+
     async fetchSingleArticle({ rootState, commit }, id) {
         const token = rootState.auth.access_token;
         const response = await api.fetchSingleArticle(token,id);
@@ -99,6 +106,10 @@ const mutations = {
 
     setComments(state, comments) {
         state.comments = comments;
+    },
+
+    addMoreToArticles(state, articles) {
+        state.articles = state.articles.concat(articles);
     }
 };
 
