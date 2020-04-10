@@ -28,7 +28,6 @@ const actions = {
     async fetchMoreArticles({ rootState, commit }, page) {
         const token = rootState.auth.access_token;
         const response = await api.fetchMoreArticles(token, page);
-        console.log(response);
         commit('addMoreToArticles', response.data.data);
     },
 

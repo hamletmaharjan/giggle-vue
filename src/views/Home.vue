@@ -44,9 +44,7 @@ export default {
     },
 
     loadMore: function() {
-      
       this.current_page++;
-      console.log(this.current_page);
       this.fetchMoreArticles(this.current_page);
     }
   
