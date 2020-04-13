@@ -12,6 +12,16 @@ const routes = [
     component: Home
   },
   {
+    path: '/trending',
+    name: 'Trending',
+    component: () => import(/* webpackChunkName: "popular" */ '../views/Trending.vue')
+  },
+  {
+    path: '/fresh',
+    name: 'Fresh',
+    component: () => import(/* webpackChunkName: "fresh" */ '../views/Fresh.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
@@ -38,6 +48,11 @@ const routes = [
     path: '/user/:username',
     name: 'Profile',
     component: () => import('../views/Profile.vue')
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('../views/Settings.vue')
   }
 ]
 

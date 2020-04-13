@@ -5,7 +5,7 @@
             <div class="media-body">
                 <h3 class="mt-0">{{getUserData.name}}</h3>
                 <h5>{{getUserData.email}}</h5>
-                {{$route.params.username}}
+                Joined at: {{joinedAt}}
             </div>
         </div>
 
@@ -18,6 +18,7 @@
 
 <script>
 
+import moment from 'moment';
 import { mapGetters, mapActions } from 'vuex';
 import ArticleList from '../components/ArticleList';
 
@@ -28,6 +29,10 @@ export default {
     },
     computed: {
         ...mapGetters(['getUserData','getArticles']),
+
+        joinedAt: function() {
+            return moment(this.getUserData.created_at).format('MMMM Do YYYY, h:mm:ss a');
+        }
     },
     created() {
         

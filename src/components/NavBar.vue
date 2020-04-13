@@ -13,13 +13,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/">Front Page</router-link>
+                    <router-link class="nav-link" to="/" exact>Front Page</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="">Most Viewed</router-link>
+                    <router-link class="nav-link" to="/trending">Trending</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="">Newest</router-link>
+                    <router-link class="nav-link" to="/fresh">Fresh</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link class="nav-link" to="/about">About</router-link>
@@ -58,7 +58,7 @@
                         </router-link>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <router-link class="dropdown-item" v-bind:to="myProfileLink">My Profile</router-link>
-                            <a class="dropdown-item" href="#">Settings</a>
+                            <router-link class="dropdown-item" to="/settings">Settings</router-link>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" v-on:click="onLogout">Logout</a>
                         </div>
@@ -147,7 +147,7 @@ export default {
     },
     computed: {...mapGetters(['isLoggedIn','getUserData']),
         myProfileLink: function() {
-            return '/user/' + this.getUserData.name;
+            return '/user/' + this.getUserData.username;
             
         }
     },
@@ -173,3 +173,11 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+a.router-link-active {
+    color: rgba(0, 0, 0, .9);
+    text-decoration: underline;
+}
+</style>
