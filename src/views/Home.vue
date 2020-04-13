@@ -45,7 +45,7 @@ export default {
 
     loadMore: function() {
       this.current_page++;
-      this.fetchMoreArticles(this.current_page);
+      this.fetchMoreArticles({page:this.current_page, type:null});
     }
   
   },
@@ -53,7 +53,7 @@ export default {
   computed: mapGetters(['getArticles']),
   
   created(){
-    this.fetchArticles();
+    this.fetchArticles(null);
     this.listener();
   }
   

@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/trending',
     name: 'Trending',
-    component: () => import(/* webpackChunkName: "popular" */ '../views/Trending.vue')
+    component: () => import(/* webpackChunkName: "trending" */ '../views/Trending.vue')
   },
   {
     path: '/fresh',

@@ -19,15 +19,18 @@ const getters = {
 
 
 const actions = {
-    async fetchArticles({ rootState, commit }) {
+    async fetchArticles({ rootState, commit }, type) {
+        console.log(type);
         const token = rootState.auth.access_token;
-        const response = await api.fetchArticles(token);
+        const response = await api.fetchArticles(token, type);
+        console.log(response);
         commit('setArticles',response.data.data);
     },
 
-    async fetchMoreArticles({ rootState, commit }, page) {
+    async fetchMoreArticles({ rootState, commit }, data) {
+        console.log(data);
         const token = rootState.auth.access_token;
-        const response = await api.fetchMoreArticles(token, page);
+        const response = await api.fetchMoreArticles(token, data.page, data.type);
         commit('addMoreToArticles', response.data.data);
     },
 

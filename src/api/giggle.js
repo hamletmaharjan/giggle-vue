@@ -6,8 +6,15 @@ const ROOT_URL = 'http://localhost:8000/api';
 
 export default{
 
-    fetchArticles(token) {
-        const url = `${ROOT_URL}/articles`;
+    fetchArticles(token, type) {
+        var url = '';
+        if(type){
+            url = `${ROOT_URL}/articles?type=${type}`;
+        }
+        else{
+            url = `${ROOT_URL}/articles`;
+        }
+        
         return axios.get(url,{
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
@@ -44,7 +51,7 @@ export default{
     },
 
     fetchUsersArticles(token, userId) {
-        const url = `${ROOT_URL}/users/${userId}/articles`;
+        var url = `${ROOT_URL}/users/${userId}/articles`;
         return axios.get(url,{
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
@@ -54,8 +61,15 @@ export default{
         });
     },
 
-    fetchMoreArticles(token, page){
-        const url = `${ROOT_URL}/articles?page=${page}`;
+    fetchMoreArticles(token, page, type){
+        var url = '';
+        if(type) {
+            url = `${ROOT_URL}/articles?page=${page}&type=${type}`;
+        }
+        else{
+            url = `${ROOT_URL}/articles?page=${page}`;
+        }
+        
         return axios.get(url,{
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
