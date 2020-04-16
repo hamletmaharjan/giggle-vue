@@ -11,7 +11,21 @@
                     <img class="hover" src="../assets/upvote-btn.png" v-on:click="onUpvoteToggle" height="25px" width="25px">
             </div>
                     <!-- <img v-on:click="upvoteToggle" class="hover" v-bind:src="upvoteUrl"  height="25px" width="25px"> -->
-                <p>{{article.upvotes}} upvotes | {{article.comments}} comments</p> <hr>
+                {{article.upvotes}} upvotes | {{article.comments}} comments
+                <div class="dropdown">
+                    <img src="../assets/dot.png" height="30px" width = "30px">
+                    <div class="dropdown-content" v-if="article.is_self">
+                        <a href="#">Share</a>
+                        <a href="#">Edit</a>
+                        <a href="#" v-on:click="onDelete">Delete</a>
+                    </div>
+                    <div class="dropdown-content" v-else>
+                        <a href="#">Share</a>
+                        <a href="#">Report</a>
+                    </div>
+                </div>
+                
+                <hr>
             </div>
             <div class="col-sm-6">
                 
@@ -24,7 +38,7 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
 // import upvoted from '../assets/upvote-btn-orange.png';
 // import upvote from '../assets/upvote-btn.png';
@@ -50,6 +64,7 @@ export default {
     },
     methods: {
         ...mapGetters(['getAccessToken']),
+        ...mapActions(['deleteArticle']),
         onUpvoteToggle: function() {
             console.log(this.article.id);
             this.is_upvoted = !this.is_upvoted;
@@ -69,6 +84,10 @@ export default {
                     console.log(error);
             });   
 
+        },
+
+        onDelete() {
+            this.deleteArticle(this.article.id);
         }
     },
 
@@ -87,4 +106,38 @@ export default {
 .hover {
     cursor: pointer;
 }
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
 </style>

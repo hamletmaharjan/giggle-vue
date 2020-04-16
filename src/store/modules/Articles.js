@@ -1,5 +1,6 @@
 import api from '../../api/giggle';
 import axios from 'axios';
+import router from '../../router/index.js';
 
 const state = {
     articles: [],
@@ -20,15 +21,12 @@ const getters = {
 
 const actions = {
     async fetchArticles({ rootState, commit }, type) {
-        console.log(type);
         const token = rootState.auth.access_token;
         const response = await api.fetchArticles(token, type);
-        console.log(response);
         commit('setArticles',response.data.data);
     },
 
     async fetchMoreArticles({ rootState, commit }, data) {
-        console.log(data);
         const token = rootState.auth.access_token;
         const response = await api.fetchMoreArticles(token, data.page, data.type);
         commit('addMoreToArticles', response.data.data);
@@ -41,6 +39,19 @@ const actions = {
         commit('setArticle',response.data.data);
     },
 
+    async deleteArticle({rootState}, id) {
+        const token = rootState.auth.access_token;
+        const response = await api.deleteArticle(token, id);
+        console.log(response);
+        router.go();
+
+    },
+
+    async deleteComment({rootState}, id) {
+        const token = rootState.auth.access_token;
+        const response = await api.deleteComment(token, id);
+        console.log(response);
+    },
     async fetchUsersArticles({rootState, commit}, userId){
         
         const token = rootState.auth.access_token;

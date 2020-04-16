@@ -79,6 +79,27 @@ export default{
         });
     },
 
+    deleteArticle(token, id) {
+        const url = `${ROOT_URL}/articles/${id}`;
+        return axios.delete(url,{
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    },
+
+    deleteComment(token, id) {
+        const url = `${ROOT_URL}/comments/${id}`;
+        return axios.delete(url,{
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    },
 
     signup(userData) {
         return userData;
