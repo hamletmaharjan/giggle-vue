@@ -63,7 +63,7 @@
                             </div> -->
                             <div class="drop-content" v-for="notification in notifications" :key="notification.id">
                                 <li>
-                                    {{notification.username}} commented on your article
+                                    {{notification.username}} {{notification.type}} on your post
                                     <!-- <div class="col-md-3 col-sm-3 col-xs-3"><div class="notify-img"><img src="http://placehold.it/45x45" alt=""></div></div>
                                     <div class="col-md-9 col-sm-9 col-xs-9 pd-l0"><a href="">Ahmet</a> yorumladı. <a href="">Çicek bahçeleri...</a> <a href="" class="rIcon"><i class="fa fa-dot-circle-o"></i></a>
                                     
@@ -180,7 +180,8 @@ export default {
             image: {}
         }
     },
-    computed: {...mapGetters(['isLoggedIn','getUserData']),
+    computed: {
+        ...mapGetters(['isLoggedIn','getUserData']),
         myProfileLink: function() {
             return '/user/' + this.getUserData.username;
             

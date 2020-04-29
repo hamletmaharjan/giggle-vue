@@ -44,6 +44,7 @@ export default {
                 }
             }).then( (res) => {
                 this.login(res.data);
+                window.localStorage.setItem('expires_at',res.data.expires_at);
                 router.push('/');
                 })
                 .catch(function (error) {

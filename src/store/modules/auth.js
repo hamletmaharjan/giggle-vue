@@ -1,8 +1,8 @@
-
+import moment from 'moment';
 
 const state = {
     user_data: window.localStorage.getItem('userData'),
-    crap:'fuck this',
+    exp: window.localStorage.getItem('expires_at'),
     access_token: window.localStorage.getItem('access_token')
     
 };
@@ -16,7 +16,11 @@ const getters = {
     },
 
     isLoggedIn(state) {
+        
         if((state.access_token == "null") || (state.access_token == null)){
+            return false;
+        }
+        else if(moment(state.exp).isBefore(moment())){
             return false;
         }
         else{
@@ -43,6 +47,7 @@ const actions = {
     logout(context){
         context.commit('setAccessToken',null);
         window.localStorage.removeItem('access_token');
+        window.localStorage.removeItem('expires_at');
         
     }
 
