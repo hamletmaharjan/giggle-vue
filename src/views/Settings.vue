@@ -1,7 +1,7 @@
 <template>
   <div>
-      <h1>Settings</h1>
-      <div class="row">
+    <h1>Settings</h1>
+    <div class="row">
       <div class="col-3">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
@@ -35,9 +35,10 @@
               <label>Birthday</label>
               <input type="date" class="form-control" name="username" v-model="profile.date_of_birth">
             </div>
-            <div class="form-group">
-              <label>Bio</label>
-              <textarea v-model="profile.bio"></textarea>
+            
+            <div class="form-group purple-border">
+              <label for="exampleFormControlTextarea4">Bio</label>
+              <textarea class="form-control" v-model="profile.bio" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary" v-on:click="onProfileChange">Save Changes</button>
           </div>
@@ -89,6 +90,11 @@
 <script>
 import { mapGetters } from 'vuex';
 import axios from 'axios';
+
+const ROOT_URL = 'http://localhost:8000/api';
+const token = window.localStorage.getItem('access_token');
+
+
 export default {
     name: 'Settings',
     data() {
@@ -112,6 +118,26 @@ export default {
 
       onPasswordChange() {
         console.log('on password change');
+        var formData = new FormData();
+        formData.append('_method','PATCH');
+        formData.append('old_password', this.old_password);
+        formData.append('new_password', this.new_password);
+        formData.append('confirm_password', this.confirm_password);
+        var url = `${ROOT_URL}/users/password/change`;
+        if(token){
+          axios.post(url, formData, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+          }).then((res)=>{
+            console.log(res.data);
+            this.old_password = '';
+            this.new_password = '';
+            this.confirm_password = '';
+          });
+        }
       }
     },
     created() {
