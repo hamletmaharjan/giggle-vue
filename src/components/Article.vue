@@ -1,7 +1,16 @@
 <template>
     <div>
-        <router-link v-bind:to="articleUrl"><h2>{{article.title}}</h2></router-link>
-        <img v-bind:src="imageUrl">
+        <!-- <router-link v-bind:to="articleUrl"><h2>{{article.title}}</h2></router-link>
+        <img v-bind:src="imageUrl"> -->
+        <div class="card">
+            <div class="card-header">
+                <router-link v-bind:to="articleUrl"><h2>{{article.title}}</h2></router-link>
+            </div>
+            <div class="card-body">
+               <img v-bind:src="imageUrl">
+            </div>
+        
+
         <div class="row">
             <div class="col-sm-6">
                 <div v-if="is_upvoted">
@@ -30,6 +39,8 @@
             <div class="col-sm-6">
                 
             </div>
+        </div>
+
         </div>
         
     </div>

@@ -1,9 +1,20 @@
 <template>
     <div>
-        <a href="#"><h2>{{getArticle.title}}</h2></a>
+        <!-- <a href="#"><h2>{{getArticle.title}}</h2></a>
         <p>OP: {{getArticle.op}}</p>
         <img v-bind:src="imageUrl">
-        <p>{{getArticle.upvotes}} upvotes | {{getArticle.comments_count}} comments</p> <hr>
+        <p>{{getArticle.upvotes}} upvotes | {{getArticle.comments_count}} comments</p> <hr> -->
+
+        <div class="card">
+            <div class="card-header">
+                <a href="#"><h2>{{getArticle.title}}</h2></a>
+                <p>OP: {{getArticle.op}}</p>
+            </div>
+            <div class="card-body">
+               <img v-bind:src="imageUrl">
+               <p>{{getArticle.upvotes}} upvotes | {{getArticle.comments_count}} comments</p> <hr>
+            </div>
+        </div>
 
         <div class="input-group mb-3">
             <input v-on:input="onInput" class="form-control" placeholder="Leave a comment...">
