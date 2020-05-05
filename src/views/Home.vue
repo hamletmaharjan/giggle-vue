@@ -2,7 +2,9 @@
   <div class="home">
     <ul id="infinite-list">
       <ArticleList v-bind:articles="getArticles"></ArticleList>
+      
     </ul>
+    <Observer @intersect="intersected"/>
   </div>
 </template>
 
@@ -10,6 +12,7 @@
 // @ is an alias to /src
 import { mapActions, mapGetters } from 'vuex';
 import ArticleList from '../components/ArticleList';
+import Observer from '../components/Observer';
 
 export default {
   name: 'Home',
@@ -19,34 +22,44 @@ export default {
     }
   },
   components: {
-    ArticleList
+    ArticleList,
+    Observer
   },
   methods:{
     ...mapActions(['fetchArticles','fetchMoreArticles']),
 
-    listener: function() {
-      let vm = this;
-      window.addEventListener("scroll", function() {
-      var height = document.documentElement.offsetHeight,
-      // Get the current offset - how far "scrolled down"
-      offset = document.documentElement.scrollTop + window.innerHeight;
+    intersected() {
+      this.current_page++;
+      this.fetchMoreArticles({page:this.current_page, type:null})
 
-      // Check if user has hit the end of page
-      // console.log('Height: ' + height);
-      // console.log('Offset: ' + offset);
       
-        if (offset === height) { 
-          
-          vm.loadMore();
-        
-        }
-      });
+      // const items = await res.json();
+      // this.items = [...this.items, ...items];
     },
 
-    loadMore: function() {
-      this.current_page++;
-      this.fetchMoreArticles({page:this.current_page, type:null});
-    }
+    // listener: function() {
+    //   let vm = this;
+    //   window.addEventListener("scroll", function() {
+    //   var height = document.documentElement.offsetHeight,
+    //   // Get the current offset - how far "scrolled down"
+    //   offset = document.documentElement.scrollTop + window.innerHeight;
+
+    //   // Check if user has hit the end of page
+    //   // console.log('Height: ' + height);
+    //   // console.log('Offset: ' + offset);
+      
+    //     if (offset === height) { 
+          
+    //       vm.loadMore();
+        
+    //     }
+    //   });
+    // },
+
+    // loadMore: function() {
+    //   this.current_page++;
+    //   this.fetchMoreArticles({page:this.current_page, type:null});
+    // }
   
   },
 
@@ -54,7 +67,7 @@ export default {
   
   created(){
     this.fetchArticles(null);
-    this.listener();
+    // this.listener();
   }
   
     

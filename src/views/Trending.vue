@@ -3,6 +3,7 @@
     <ul id="infinite-list">
       <ArticleList v-bind:articles="getArticles"></ArticleList>
     </ul>
+    <Observer @intersect="intersected"/>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 // @ is an alias to /src
 import { mapActions, mapGetters } from 'vuex';
 import ArticleList from '../components/ArticleList';
+import Observer from '../components/Observer';
 
 export default {
   name: 'Trending',
@@ -19,34 +21,17 @@ export default {
     }
   },
   components: {
-    ArticleList
+    ArticleList,
+    Observer
   },
   methods:{
     ...mapActions(['fetchArticles','fetchMoreArticles']),
 
-    listener: function() {
-      let vm = this;
-      window.addEventListener("scroll", function() {
-      var height = document.documentElement.offsetHeight,
-      // Get the current offset - how far "scrolled down"
-      offset = document.documentElement.scrollTop + window.innerHeight;
-
-      // Check if user has hit the end of page
-      // console.log('Height: ' + height);
-      // console.log('Offset: ' + offset);
-      
-        if (offset === height) { 
-          
-          vm.loadMore();
-        
-        }
-      });
-    },
-
-    loadMore: function() {
+    intersected() {
       this.current_page++;
-      this.fetchMoreArticles({page:this.current_page, type:'mu'});
-    }
+      this.fetchMoreArticles({page:this.current_page, type:'mu'})
+
+    },
   
   },
 
@@ -54,7 +39,6 @@ export default {
   
   created(){
     this.fetchArticles('mu');
-    this.listener();
   }
   
     
